@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Albert Tamayev — Principal Architect / Engineer</title>
+  <meta name="description" content="Albert Tamayev — Principal Architect & Engineer. Modernizing platforms, scaling systems, and applying GenAI to real product outcomes.">
+  <style>
+    :root {
+      --navy: #0a1930;
+      --navy-2: #10233f;
+      --navy-3: #16305a;
+      --ink: #0a1930;
+      --paper: #ffffff;
+      --paper-2: #f4f6fb;
+      --line: #e3e8f2;
+      --muted: #5a6b86;
+      --accent: #2f81f7;
+      --accent-soft: #dbeafe;
+      --highlight: #ffd966;
+      --radius: 14px;
+      --maxw: 940px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Hero ---------- */
+    header.hero {
+      background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 60%, var(--navy-3) 100%);
+      color: var(--paper);
+      padding: 72px 0 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    header.hero::after {
+      content: "";
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(47,129,247,0.28), transparent 70%);
+      border-radius: 50%;
+    }
+    .hero .wrap { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8fb4f0;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    header.hero h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      line-height: 1.08;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    header.hero .role {
+      font-size: clamp(17px, 3vw, 21px);
+      color: #c3d4ef;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+    .hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-block;
+      padding: 11px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #4d94ff; text-decoration: none; }
+    .btn-ghost { border: 1px solid rgba(255,255,255,0.28); color: #e6eefb; }
+    .btn-ghost:hover { border-color: #fff; text-decoration: none; }
+
+    /* ---------- Stat strip ---------- */
+    .stats {
+      background: var(--navy-2);
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .stats .wrap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      padding: 34px 24px;
+    }
+    .stat { color: #fff; }
+    .stat .num {
+      font-size: clamp(26px, 4.5vw, 38px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .stat .num span { color: var(--highlight); }
+    .stat .lbl {
+      font-size: 13px;
+      color: #a9bcda;
+      margin-top: 8px;
+      line-height: 1.35;
+    }
+
+    /* ---------- Sections ---------- */
+    section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+    section:last-of-type { border-bottom: none; }
+    .kicker {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    .lead {
+      font-size: clamp(17px, 2.4vw, 19px);
+      color: #33425c;
+      max-width: 720px;
+    }
+    .lead strong { color: var(--ink); font-weight: 700; }
+
+    /* ---------- Skills ---------- */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .skill-card {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+    .skill-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 13px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #35476a;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    /* ---------- Experience ---------- */
+    .job {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 28px;
+      padding: 26px 0;
+      border-top: 1px solid var(--line);
+    }
+    .job:first-child { border-top: none; }
+    .job .meta .company { font-weight: 800; font-size: 18px; color: var(--navy); }
+    .job .meta .title { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .job .meta .period { color: var(--muted); font-size: 13px; margin-top: 6px; }
+    .job ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .job li {
+      position: relative;
+      padding-left: 22px;
+      color: #2b3a54;
+    }
+    .job li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 10px;
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      background: var(--accent);
+    }
+    .metric {
+      background: linear-gradient(transparent 62%, var(--highlight) 62%);
+      font-weight: 700;
+      color: var(--ink);
+      padding: 0 1px;
+    }
+
+    /* ---------- Projects ---------- */
+    .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .project {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .project:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(10,25,48,0.10); }
+    .project .thumb {
+      height: 150px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-3) 100%);
+      color: #cfe0fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      position: relative;
+    }
+    .project .thumb .ping {
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 34px),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 34px);
+    }
+    .project .body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .project h3 { font-size: 17px; font-weight: 700; color: var(--navy); }
+    .project .desc { font-size: 14px; color: var(--muted); margin: 8px 0 16px; flex: 1; }
+    .project .link { font-weight: 600; font-size: 14px; }
+    .project .link::after { content: " →"; }
+
+    /* ---------- Education ---------- */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .two-col h3 { font-size: 16px; color: var(--navy); margin-bottom: 12px; font-weight: 700; }
+    .two-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .two-col li { color: #2b3a54; padding-left: 18px; position: relative; }
+    .two-col li::before { content: "▸"; position: absolute; left: 0; color: var(--accent); }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background: var(--navy);
+      color: #a9bcda;
+      padding: 40px 0;
+      text-align: center;
+    }
+    footer a { color: #cfe0fb; }
+    footer .name { color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 6px; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 760px) {
+      .stats .wrap { grid-template-columns: repeat(2, 1fr); gap: 26px; }
+      .skill-grid { grid-template-columns: 1fr; }
+      .job { grid-template-columns: 1fr; gap: 14px; }
+      .projects { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; gap: 28px; }
+      section { padding: 48px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Principal Architect · Engineering Leader</span>
+      <h1>Albert Tamayev</h1>
+      <p class="role">Modernizing platforms, scaling systems, and turning GenAI into measurable product wins.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#experience">See the impact</a>
+        <a class="btn btn-ghost" href="https://dejachart.com" target="_blank" rel="noopener">Visit dejachart.com</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Stat strip ===== -->
+  <div class="stats">
+    <div class="wrap">
+      <div class="stat">
+        <div class="num"><span>500+</span></div>
+        <div class="lbl">Enterprise clients onboarded in 2 years</div>
+      </div>
+      <div class="stat">
+        <div class="num"><span>90%</span></div>
+        <div class="lbl">Faster releases via CI/CD automation</div>
+      </div>
+      <div class="stat">
+        <div class="num"><span>10–20%</span></div>
+        <div class="lbl">Lift in customer &amp; seller metrics</div>
+      </div>
+      <div class="stat">
+        <div class="num"><span>ASP → </span>µsvc</div>
+        <div class="lbl">Legacy stack rebuilt into microservices</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- ===== Bio ===== -->
+    <section id="bio">
+      <div class="kicker">Profile</div>
+      <h2>Building systems that scale — and that ship results.</h2>
+      <p class="lead">
+        Albert Tamayev is a principal architect and engineering leader who pairs deep technical rigor
+        with a bias for measurable impact. Recent work spans re-platforming legacy monoliths into
+        modern microservices, leading NLP and LLM initiatives inside Amazon's catalog, and designing
+        architectures built to grow with the customers they serve. The through-line is a
+        <strong>data-first, evidence-driven approach</strong>: run small experiments, prove the metrics,
+        then scale what works. Comfortable navigating ambiguity and championing unproven ideas until
+        the numbers make the case, Albert turns hard engineering problems into
+        <strong>outcomes the business can feel</strong>.
+      </p>
+    </section>
+
+    <!-- ===== Skills ===== -->
+    <section id="skills">
+      <div class="kicker">Top Skills</div>
+      <h2>What's in the toolkit</h2>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h3>Architecture &amp; Platforms</h3>
+          <div class="tags">
+            <span class="tag">Microservices</span>
+            <span class="tag">API Design</span>
+            <span class="tag">System Scalability</span>
+            <span class="tag">Legacy Modernization</span>
+            <span class="tag">High-Performance Systems</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>AI / ML &amp; Data</h3>
+          <div class="tags">
+            <span class="tag">LLM / GenAI</span>
+            <span class="tag">NLP</span>
+            <span class="tag">Schema Detection</span>
+            <span class="tag">Metadata Extraction</span>
+            <span class="tag">Metrics &amp; Analytics</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Engineering &amp; Delivery</h3>
+          <div class="tags">
+            <span class="tag">Angular</span>
+            <span class="tag">CI/CD &amp; DevOps</span>
+            <span class="tag">Cloud Deployment</span>
+            <span class="tag">Automation</span>
+            <span class="tag">Release Engineering</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Leadership</h3>
+          <div class="tags">
+            <span class="tag">Team Leadership</span>
+            <span class="tag">Technical Strategy</span>
+            <span class="tag">Cross-team Alignment</span>
+            <span class="tag">Mentorship</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Problem Solving</h3>
+          <div class="tags">
+            <span class="tag">First-Principles Thinking</span>
+            <span class="tag">Rapid Experimentation</span>
+            <span class="tag">Fact-Based Decisions</span>
+            <span class="tag">Ambiguity</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <h3>Product Focus</h3>
+          <div class="tags">
+            <span class="tag">Customer-Driven Design</span>
+            <span class="tag">Enterprise Onboarding</span>
+            <span class="tag">Customizable Features</span>
+            <span class="tag">Roadmap Scaling</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Experience ===== -->
+    <section id="experience">
+      <div class="kicker">Work Experience</div>
+      <h2>Impact, by the numbers</h2>
+
+      <div class="job">
+        <div class="meta">
+          <div class="company">Opus / Alacra</div>
+          <div class="title">Head of Engineering</div>
+        </div>
+        <ul>
+          <li>Drove full modernization of the technology stack — migrating from legacy ASP/CGI to <strong>API-driven microservices with an Angular front end</strong>, pushing the platform onto scalable new rails.</li>
+          <li>Architected for long-term scalability against current and future customer needs, enabling the business to onboard <span class="metric">500+ enterprise clients within 2 years</span> with highly customizable features.</li>
+          <li>Led the DevOps team to build a CI/CD pipeline that <span class="metric">cut release time by 90%</span>, created a repeatable process, and reduced manual operator steps and hidden dependencies.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="meta">
+          <div class="company">Amazon</div>
+          <div class="title">Software Engineering Leader — Catalog</div>
+        </div>
+        <ul>
+          <li>Led a software team to improve the Amazon catalog, evaluating multiple <strong>NLP techniques to extract metadata from unstructured text</strong> — moving fast, testing, and converging on the best-performing approach.</li>
+          <li>Championed <strong>LLM/GenAI to automate schema detection</strong> — an initially controversial bet with no proof it would work. De-risked it with small experiments to build data, metrics, and internal demos before scaling.</li>
+          <li>Replaced a semi-manual schema-discovery process with automation that <span class="metric">lifted customer &amp; seller satisfaction and business metrics 10–20%</span> across the board.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Projects ===== -->
+    <section id="projects">
+      <div class="kicker">Projects &amp; Deliverables</div>
+      <h2>Shipped work &amp; artifacts</h2>
+      <div class="projects">
+
+        <div class="project">
+          <div class="thumb"><div class="ping"></div>📈</div>
+          <div class="body">
+            <h3>DejaChart</h3>
+            <p class="desc">A personal venture that matches current stock charts against historically similar patterns — and shows how those patterns resolved in the past. Built and maintained end-to-end.</p>
+            <a class="link" href="https://dejachart.com" target="_blank" rel="noopener">dejachart.com</a>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="thumb"><div class="ping"></div>🧩</div>
+          <div class="body">
+            <h3>Catalog Schema Automation</h3>
+            <p class="desc">GenAI-driven schema detection for the Amazon catalog — experiment-backed, demo-validated, and rolled out to replace a semi-manual discovery workflow.</p>
+            <span class="link" style="color:var(--muted)">Amazon · internal</span>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="thumb"><div class="ping"></div>⚙️</div>
+          <div class="body">
+            <h3>Platform Re-Architecture</h3>
+            <p class="desc">Ground-up rebuild from ASP/CGI to microservices + Angular, engineered for scalability and the customization that enterprise onboarding demanded.</p>
+            <span class="link" style="color:var(--muted)">Opus / Alacra</span>
+          </div>
+        </div>
+
+        <div class="project">
+          <div class="thumb"><div class="ping"></div>🚀</div>
+          <div class="body">
+            <h3>CI/CD Pipeline</h3>
+            <p class="desc">Automated integration and deployment pipeline that cut release time by 90% and turned a manual, dependency-prone process into a repeatable one.</p>
+            <span class="link" style="color:var(--muted)">Alacra · DevOps</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== Education & Interests ===== -->
+    <section id="education">
+      <div class="kicker">Education &amp; Interests</div>
+      <h2>Beyond the résumé</h2>
+      <div class="two-col">
+        <div>
+          <h3>Education &amp; Continuous Learning</h3>
+          <ul>
+            <li>Background in Computer Science &amp; Software Engineering</li>
+            <li>Ongoing, hands-on study of LLM / GenAI systems and applied machine learning</li>
+            <li>Believer in learning by building — new ideas proven through experiments, not slideware</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Interests</h3>
+          <ul>
+            <li>Independent product building — currently <a href="https://dejachart.com" target="_blank" rel="noopener">dejachart.com</a></li>
+            <li>Financial markets &amp; quantitative pattern analysis</li>
+            <li>Applied AI: turning emerging models into practical, measurable tools</li>
+            <li>System design and architecture at scale</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <div class="wrap">
+      <div class="name">Albert Tamayev</div>
+      <div>Principal Architect / Engineer · <a href="https://dejachart.com" target="_blank" rel="noopener">dejachart.com</a></div>
+    </div>
+  </footer>
+
+</body>
+</html>
