@@ -117,16 +117,21 @@
     }
     .hero-actions { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; }
     .btn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 11px 20px;
       border-radius: 999px;
       font-weight: 600;
       font-size: 15px;
     }
+    .btn svg { width: 16px; height: 16px; fill: currentColor; }
     .btn-primary { background: var(--accent); color: #fff; }
     .btn-primary:hover { background: #4d94ff; text-decoration: none; }
     .btn-ghost { border: 1px solid rgba(255,255,255,0.28); color: #e6eefb; }
     .btn-ghost:hover { border-color: #fff; text-decoration: none; }
+    .btn-download { background: #fff; color: var(--navy); }
+    .btn-download:hover { background: #eaf1fd; text-decoration: none; }
 
     /* ---------- Stat strip ---------- */
     .stats {
@@ -389,6 +394,10 @@
       <p class="role">Modernizing platforms, scaling systems, and turning GenAI into measurable product wins.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#experience">See the impact</a>
+        <a class="btn btn-download" href="albert-tamayev-resume.pdf" download="Albert-Tamayev-Resume.pdf">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15.6l-4.2-4.2 1.4-1.4 1.8 1.8V4h2v7.8l1.8-1.8 1.4 1.4L12 15.6zM5 18h14v2H5z"/></svg>
+          Download résumé
+        </a>
         <a class="btn btn-ghost" href="https://dejachart.com" target="_blank" rel="noopener">Visit dejachart.com</a>
       </div>
     </div>
