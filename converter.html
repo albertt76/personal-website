@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter</title>
+  <meta name="description" content="A simple, extensible unit converter — kilometers and miles, with room to grow.">
+  <style>
+    :root {
+      --navy: #0a1930;
+      --navy-2: #10233f;
+      --navy-3: #16305a;
+      --ink: #0a1930;
+      --paper: #ffffff;
+      --paper-2: #f4f6fb;
+      --line: #e3e8f2;
+      --muted: #5a6b86;
+      --accent: #2f81f7;
+      --highlight: #ffd966;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(165deg, var(--navy) 0%, var(--navy-2) 55%, var(--navy-3) 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 440px;
+      padding: 32px 30px;
+      box-shadow: 0 20px 60px rgba(5, 12, 25, 0.35);
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+
+    .field { margin-bottom: 18px; }
+
+    input[type="number"], select {
+      width: 100%;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--ink);
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    input[type="number"]:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.15);
+    }
+
+    .swap-row { display: flex; align-items: flex-end; gap: 10px; }
+    .swap-row .field { flex: 1; margin-bottom: 0; }
+    .swap-btn {
+      flex: 0 0 auto;
+      height: 45px;
+      width: 45px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--accent);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .swap-btn:hover { background: var(--paper-2); }
+    .swap-btn:active { transform: scale(0.94); }
+
+    .result {
+      margin-top: 24px;
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+    .result .value {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .result .value .num {
+      background: linear-gradient(transparent 62%, var(--highlight) 62%);
+      padding: 0 3px;
+    }
+    .result .equation {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    .result.error .value { font-size: 17px; color: var(--muted); font-weight: 600; }
+
+    .note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="eyebrow">Unit Converter</div>
+    <h1>Convert distances</h1>
+
+    <div class="field">
+      <label for="amount">Amount</label>
+      <input type="number" id="amount" value="1" step="any" inputmode="decimal" autocomplete="off" />
+    </div>
+
+    <div class="swap-row">
+      <div class="field">
+        <label for="direction">Conversion</label>
+        <select id="direction"></select>
+      </div>
+      <button type="button" class="swap-btn" id="swap" title="Swap direction" aria-label="Swap direction">⇄</button>
+    </div>
+
+    <div class="result" id="result" aria-live="polite">
+      <div class="value">—</div>
+    </div>
+
+    <p class="note">
+      Enter a value and pick a direction — the result updates as you type.
+    </p>
+  </main>
+
+  <script>
+    /*
+     * EXTENSIBLE UNIT REGISTRY
+     * ------------------------
+     * Every unit is defined by how many "base units" it equals within its
+     * category. Conversion is then category-agnostic:
+     *
+     *     baseValue = amount * from.factor
+     *     result    = baseValue / to.factor
+     *
+     * To support a new conversion in the future, just add a category here —
+     * no changes to the UI or conversion logic are needed. For example:
+     *
+     *   length: {
+     *     label: 'Length', base: 'cm',
+     *     units: {
+     *       cm: { label: 'Centimeters', symbol: 'cm', factor: 1 },
+     *       in: { label: 'Inches',      symbol: 'in', factor: 2.54 },
+     *     },
+     *   },
+     *   weight: {
+     *     label: 'Weight', base: 'kg',
+     *     units: {
+     *       kg: { label: 'Kilograms', symbol: 'kg', factor: 1 },
+     *       lb: { label: 'Pounds',    symbol: 'lb', factor: 0.45359237 },
+     *     },
+     *   },
+     *
+     * (Note: purely ratio-based units work with `factor`. Non-linear scales
+     *  like Celsius↔Fahrenheit would need a convert() function instead —
+     *  a natural next extension of this same shape.)
+     */
+    const CATEGORIES = {
+      distance: {
+        label: 'Distance',
+        base: 'km',
+        units: {
+          km: { label: 'Kilometers', symbol: 'km', factor: 1 },
+          mi: { label: 'Miles',      symbol: 'mi', factor: 1.609344 },
+        },
+      },
+    };
+
+    // Build the flat list of directional pairs (km → mi, mi → km, ...) from
+    // the registry. New categories/units show up here automatically.
+    function buildPairs() {
+      const pairs = [];
+      for (const [catKey, cat] of Object.entries(CATEGORIES)) {
+        const keys = Object.keys(cat.units);
+        for (const from of keys) {
+          for (const to of keys) {
+            if (from === to) continue;
+            pairs.push({
+              id: `${catKey}:${from}:${to}`,
+              category: catKey,
+              from,
+              to,
+              label: `${cat.units[from].label} → ${cat.units[to].label}`,
+            });
+          }
+        }
+      }
+      return pairs;
+    }
+
+    function convert(amount, pair) {
+      const cat = CATEGORIES[pair.category];
+      const baseValue = amount * cat.units[pair.from].factor;
+      return baseValue / cat.units[pair.to].factor;
+    }
+
+    // Trim trailing zeros while keeping reasonable precision.
+    function formatNumber(n) {
+      if (!isFinite(n)) return '—';
+      return parseFloat(n.toFixed(6)).toLocaleString(undefined, { maximumFractionDigits: 6 });
+    }
+
+    const PAIRS = buildPairs();
+    const amountEl = document.getElementById('amount');
+    const directionEl = document.getElementById('direction');
+    const resultEl = document.getElementById('result');
+    const swapEl = document.getElementById('swap');
+
+    // Populate the direction dropdown from the registry.
+    for (const pair of PAIRS) {
+      const opt = document.createElement('option');
+      opt.value = pair.id;
+      opt.textContent = pair.label;
+      directionEl.appendChild(opt);
+    }
+
+    function currentPair() {
+      return PAIRS.find(p => p.id === directionEl.value) || PAIRS[0];
+    }
+
+    function render() {
+      const pair = currentPair();
+      const cat = CATEGORIES[pair.category];
+      const raw = amountEl.value.trim();
+
+      if (raw === '' || isNaN(Number(raw))) {
+        resultEl.classList.add('error');
+        resultEl.innerHTML = '<div class="value">Enter a number to convert</div>';
+        return;
+      }
+
+      const amount = Number(raw);
+      const output = convert(amount, pair);
+      const fromSym = cat.units[pair.from].symbol;
+      const toSym = cat.units[pair.to].symbol;
+
+      resultEl.classList.remove('error');
+      resultEl.innerHTML =
+        '<div class="value"><span class="num">' + formatNumber(output) + '</span> ' + toSym + '</div>' +
+        '<div class="equation">' + formatNumber(amount) + ' ' + fromSym + ' = ' + formatNumber(output) + ' ' + toSym + '</div>';
+    }
+
+    // Swap picks the reverse pair (to → from) within the same category.
+    function swap() {
+      const pair = currentPair();
+      const reverseId = `${pair.category}:${pair.to}:${pair.from}`;
+      if (PAIRS.some(p => p.id === reverseId)) directionEl.value = reverseId;
+      render();
+    }
+
+    amountEl.addEventListener('input', render);
+    directionEl.addEventListener('change', render);
+    swapEl.addEventListener('click', swap);
+
+    render();
+  </script>
+</body>
+</html>
